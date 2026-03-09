@@ -1,0 +1,1498 @@
+// app/page.module.scss
+
+// Variables
+$primary-blue: #1e3a8a;
+$primary-dark: #0f172a;
+$accent-grey: #64748b;
+$light-grey: #f1f5f9;
+$white: #ffffff;
+$success: #10b981;
+$urgency-red: #dc2626;
+$gradient-blue: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+
+// Font Variables
+$font-heading: var(--font-heading);
+$font-body: var(--font-body);
+
+// Breakpoints
+$mobile: 640px;
+$tablet: 968px;
+$desktop: 1200px;
+
+// Mixins
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == mobile {
+    @media (max-width: #{$mobile}) { @content; }
+  }
+  @if $breakpoint == tablet {
+    @media (max-width: #{$tablet}) { @content; }
+  }
+  @if $breakpoint == desktop {
+    @media (min-width: #{$desktop}) { @content; }
+  }
+}
+
+@mixin container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  
+  @include respond-to(mobile) {
+    padding: 0 1rem;
+  }
+}
+
+// Animations
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Base
+.container {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.fadeIn {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Navigation
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  z-index: 1000;
+  padding: 1.25rem 0;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.03);
+  transition: all 0.3s ease;
+  
+  &.scrolled {
+    box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+    padding: 1rem 0;
+  }
+}
+
+.navContainer {
+  @include container;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  height: 55px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.02);
+  }
+  
+  @include respond-to(mobile) {
+    height: 45px;
+  }
+}
+
+.navCta {
+  background: $gradient-blue;
+  color: $white;
+  padding: 0.875rem 1.75rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-family: $font-heading;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(30, 58, 138, 0.2);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(30, 58, 138, 0.35);
+  }
+  
+  @include respond-to(mobile) {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.85rem;
+  }
+}
+
+// Urgency Bar
+.urgencyBar {
+  background: $urgency-red;
+  color: $white;
+  padding: 0.875rem 1rem;
+  text-align: center;
+  font-family: $font-heading;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    animation: shimmer 2.5s infinite;
+  }
+  
+  @include respond-to(mobile) {
+    font-size: 0.8rem;
+    padding: 0.75rem 0.5rem;
+  }
+}
+
+.urgencyIcon {
+  margin-right: 0.5rem;
+  font-size: 1.1em;
+}
+
+// Hero Section
+.hero {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a1628 0%, #1e3a8a 50%, #1e40af 100%);
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-top: 100px;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+      url('data:image/svg+xml,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+    opacity: 0.6;
+  }
+}
+
+.heroContainer {
+  @include container;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  
+  @include respond-to(tablet) {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 3.5rem;
+  }
+}
+
+.heroContent {
+  @include respond-to(tablet) {
+    order: 2;
+  }
+}
+
+.heroTitle {
+  font-family: $font-heading;
+  font-size: 4rem;
+  font-weight: 800;
+  color: $white;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.75rem;
+  
+  @include respond-to(tablet) {
+    font-size: 3rem;
+  }
+  
+  @include respond-to(mobile) {
+    font-size: 2.25rem;
+    line-height: 1.1;
+  }
+}
+
+.highlight {
+  color: #60a5fa;
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(135deg, #60a5fa 0%, #34d399 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #10b981, #34d399);
+    border-radius: 2px;
+    opacity: 0.8;
+  }
+}
+
+.heroSubtitle {
+  font-family: $font-body;
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  max-width: 540px;
+  
+  @include respond-to(tablet) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  @include respond-to(mobile) {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+}
+
+.heroBenefits {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 3rem;
+  
+  @include respond-to(tablet) {
+    align-items: center;
+  }
+}
+
+.benefitItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: rgba(255,255,255,0.95);
+  font-family: $font-body;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  
+  @include respond-to(mobile) {
+    font-size: 0.95rem;
+    text-align: left;
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
+.benefitIcon {
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $white;
+  font-weight: 700;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.heroCtaGroup {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  
+  @include respond-to(tablet) {
+    justify-content: center;
+  }
+  
+  @include respond-to(mobile) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+}
+
+.btnPrimary {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: $white;
+  padding: 1.125rem 2.25rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-family: $font-heading;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+  
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4);
+  }
+  
+  @include respond-to(mobile) {
+    justify-content: center;
+    font-size: 1rem;
+    padding: 1rem 1.75rem;
+  }
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+  font-size: 1.2em;
+  
+  .btnPrimary:hover & {
+    transform: translateX(4px);
+  }
+}
+
+.btnSecondary {
+  background: rgba(255,255,255,0.08);
+  color: $white;
+  padding: 1.125rem 2.25rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-family: $font-heading;
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  border: 1.5px solid rgba(255,255,255,0.25);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  
+  &:hover {
+    background: rgba(255,255,255,0.15);
+    border-color: rgba(255,255,255,0.4);
+    transform: translateY(-2px);
+  }
+  
+  @include respond-to(mobile) {
+    padding: 1rem 1.75rem;
+    font-size: 1rem;
+  }
+}
+
+.heroImage {
+  position: relative;
+  
+  @include respond-to(tablet) {
+    order: 1;
+  }
+  
+  img {
+    width: 100%;
+    border-radius: 24px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+    transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    @include respond-to(tablet) {
+      transform: none;
+      max-height: 450px;
+      object-fit: cover;
+    }
+  }
+  
+  &:hover img {
+    transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+    
+    @include respond-to(tablet) {
+      transform: none;
+    }
+  }
+}
+
+.floatingBadge {
+  position: absolute;
+  bottom: -24px;
+  left: -24px;
+  background: $white;
+  padding: 1.75rem;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+  animation: float 4s ease-in-out infinite;
+  
+  @include respond-to(mobile) {
+    padding: 1.25rem;
+    bottom: -15px;
+    left: -10px;
+    border-radius: 16px;
+  }
+}
+
+.badgeNumber {
+  font-family: $font-heading;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: $primary-blue;
+  display: block;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  
+  @include respond-to(mobile) {
+    font-size: 1.75rem;
+  }
+}
+
+.badgeText {
+  font-family: $font-body;
+  font-size: 0.85rem;
+  color: $accent-grey;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-top: 0.25rem;
+  display: block;
+  
+  @include respond-to(mobile) {
+    font-size: 0.75rem;
+  }
+}
+
+// Problem Section
+.problemSection {
+  padding: 7rem 0;
+  background: $light-grey;
+  
+  @include respond-to(mobile) {
+    padding: 5rem 0;
+  }
+}
+
+.container {
+  @include container;
+}
+
+.sectionHeader {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 4.5rem;
+  
+  @include respond-to(mobile) {
+    margin-bottom: 3rem;
+  }
+}
+
+.sectionTag {
+  font-family: $font-heading;
+  color: $primary-blue;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.8rem;
+  margin-bottom: 1.25rem;
+  display: block;
+  
+  @include respond-to(mobile) {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+  }
+}
+
+.sectionTitle {
+  font-family: $font-heading;
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: $primary-dark;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+  
+  @include respond-to(mobile) {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+}
+
+.sectionSubtitle {
+  font-family: $font-body;
+  color: $accent-grey;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  font-weight: 400;
+  
+  @include respond-to(mobile) {
+    font-size: 1rem;
+  }
+}
+
+.painPoints {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.painCard {
+  background: $white;
+  padding: 2.75rem;
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+  border-left: 4px solid $urgency-red;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.08);
+  }
+  
+  @include respond-to(mobile) {
+    padding: 2rem;
+    border-radius: 20px;
+  }
+  
+  h3 {
+    font-family: $font-heading;
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 0.875rem;
+    color: $primary-dark;
+    letter-spacing: -0.01em;
+    
+    @include respond-to(mobile) {
+      font-size: 1.15rem;
+    }
+  }
+  
+  p {
+    font-family: $font-body;
+    color: $accent-grey;
+    line-height: 1.7;
+    font-size: 1rem;
+    font-weight: 400;
+    
+    @include respond-to(mobile) {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+  }
+}
+
+.painIcon {
+  font-size: 2.75rem;
+  margin-bottom: 1.25rem;
+  line-height: 1;
+  
+  @include respond-to(mobile) {
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+  }
+}
+
+// Solution Section
+.solutionSection {
+  padding: 7rem 0;
+  background: $white;
+  
+  @include respond-to(mobile) {
+    padding: 5rem 0;
+  }
+}
+
+.solutionGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+  
+  @include respond-to(tablet) {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+}
+
+.solutionImage {
+  position: relative;
+  
+  img {
+    width: 100%;
+    border-radius: 24px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+  }
+}
+
+.experienceBadge {
+  position: absolute;
+  top: -25px;
+  right: -25px;
+  background: linear-gradient(135deg, $primary-blue 0%, #3b82f6 100%);
+  color: $white;
+  padding: 1.75rem;
+  border-radius: 50%;
+  width: 130px;
+  height: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(30, 58, 138, 0.3);
+  
+  @include respond-to(mobile) {
+    width: 100px;
+    height: 100px;
+    padding: 1.25rem;
+    top: -15px;
+    right: -10px;
+  }
+}
+
+.expYears {
+  font-family: $font-heading;
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  
+  @include respond-to(mobile) {
+    font-size: 1.75rem;
+  }
+}
+
+.expText {
+  font-family: $font-body;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  opacity: 0.95;
+  margin-top: 0.25rem;
+  line-height: 1.3;
+  
+  @include respond-to(mobile) {
+    font-size: 0.65rem;
+  }
+}
+
+.solutionContent {
+  .sectionTag {
+    margin-bottom: 1.25rem;
+  }
+}
+
+.solutionTitle {
+  font-family: $font-heading;
+  font-size: 2.75rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: $primary-dark;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  
+  @include respond-to(mobile) {
+    font-size: 2rem;
+  }
+}
+
+.solutionText {
+  font-family: $font-body;
+  color: $accent-grey;
+  font-size: 1.15rem;
+  margin-bottom: 2.5rem;
+  line-height: 1.8;
+  font-weight: 400;
+  
+  @include respond-to(mobile) {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+}
+
+.featureList {
+  list-style: none;
+  margin-bottom: 2.5rem;
+  
+  li {
+    padding: 1.125rem 0;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: $font-body;
+    font-weight: 500;
+    font-size: 1.05rem;
+    color: $primary-dark;
+    letter-spacing: -0.01em;
+    
+    @include respond-to(mobile) {
+      font-size: 0.95rem;
+      padding: 0.875rem 0;
+    }
+    
+    &::before {
+      content: '✓';
+      color: $success;
+      font-weight: 800;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      background: rgba(16, 185, 129, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+// Stats Section
+.statsSection {
+  background: $primary-dark;
+  padding: 5rem 0;
+  color: $white;
+  
+  @include respond-to(mobile) {
+    padding: 4rem 0;
+  }
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.5rem;
+  text-align: center;
+  
+  @include respond-to(tablet) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem 2rem;
+  }
+  
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.statItem {
+  h3 {
+    font-family: $font-heading;
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: $success;
+    margin-bottom: 0.75rem;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    
+    @include respond-to(mobile) {
+      font-size: 2.75rem;
+    }
+  }
+  
+  p {
+    font-family: $font-body;
+    color: rgba(255,255,255,0.7);
+    font-weight: 500;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+    
+    @include respond-to(mobile) {
+      font-size: 0.95rem;
+    }
+  }
+}
+
+// Services Section
+.servicesSection {
+  padding: 7rem 0;
+  background: $light-grey;
+  
+  @include respond-to(mobile) {
+    padding: 5rem 0;
+  }
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 2.5rem;
+  
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.serviceCard {
+  background: $white;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+  }
+  
+  @include respond-to(mobile) {
+    border-radius: 20px;
+  }
+}
+
+.serviceImage {
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4.5rem;
+  color: $white;
+  position: relative;
+  overflow: hidden;
+  
+  @include respond-to(mobile) {
+    height: 220px;
+  }
+  
+  &.residential {
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  }
+  
+  &.commercial {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+  }
+  
+  &.battery {
+    background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+  }
+}
+
+.serviceEmoji {
+  font-size: 4.5rem;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+  
+  @include respond-to(mobile) {
+    font-size: 3.5rem;
+  }
+}
+
+.serviceContent {
+  padding: 2.5rem;
+  
+  @include respond-to(mobile) {
+    padding: 1.75rem;
+  }
+  
+  h3 {
+    font-family: $font-heading;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: $primary-dark;
+    letter-spacing: -0.01em;
+    
+    @include respond-to(mobile) {
+      font-size: 1.25rem;
+    }
+  }
+  
+  p {
+    font-family: $font-body;
+    color: $accent-grey;
+    line-height: 1.7;
+    margin-bottom: 1.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    
+    @include respond-to(mobile) {
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+}
+
+.servicePrice {
+  font-family: $font-heading;
+  color: $primary-blue;
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+  
+  @include respond-to(mobile) {
+    font-size: 1.15rem;
+  }
+}
+
+// Lead Section
+.leadSection {
+  padding: 7rem 0;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  position: relative;
+  overflow: hidden;
+  
+  @include respond-to(mobile) {
+    padding: 5rem 0;
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(30, 58, 138, 0.06) 0%, transparent 70%);
+    border-radius: 50%;
+    
+    @include respond-to(mobile) {
+      width: 400px;
+      height: 400px;
+    }
+  }
+}
+
+.leadContainer {
+  max-width: 850px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.leadHeader {
+  text-align: center;
+  margin-bottom: 3.5rem;
+  
+  @include respond-to(mobile) {
+    margin-bottom: 2.5rem;
+  }
+}
+
+.leadTitle {
+  font-family: $font-heading;
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: $primary-dark;
+  margin-bottom: 1.25rem;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  
+  @include respond-to(mobile) {
+    font-size: 2rem;
+  }
+}
+
+.leadSubtitle {
+  font-family: $font-body;
+  color: $accent-grey;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  font-weight: 400;
+  max-width: 600px;
+  margin: 0 auto;
+  
+  @include respond-to(mobile) {
+    font-size: 1rem;
+  }
+}
+
+.leadForm {
+  background: $white;
+  padding: 3.5rem;
+  border-radius: 28px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+  
+  @include respond-to(mobile) {
+    padding: 2rem;
+    border-radius: 20px;
+  }
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.75rem;
+  
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+.formGroup {
+  margin-bottom: 1.75rem;
+  
+  label {
+    display: block;
+    margin-bottom: 0.625rem;
+    font-family: $font-heading;
+    font-weight: 600;
+    color: $primary-dark;
+    font-size: 0.95rem;
+    letter-spacing: -0.01em;
+    
+    @include respond-to(mobile) {
+      font-size: 0.9rem;
+    }
+  }
+  
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 1.125rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-family: $font-body;
+    font-size: 1rem;
+    font-weight: 400;
+    transition: all 0.3s ease;
+    background: #fafbfc;
+    
+    @include respond-to(mobile) {
+      padding: 1rem;
+      font-size: 16px;
+      border-radius: 10px;
+    }
+    
+    &:focus {
+      outline: none;
+      border-color: $primary-blue;
+      background: $white;
+      box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.08);
+    }
+    
+    &::placeholder {
+      color: #94a3b8;
+      font-weight: 400;
+    }
+  }
+  
+  select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.6;
+  }
+}
+
+.urgencySelector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 0.75rem;
+  
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    gap: 0.875rem;
+  }
+}
+
+.urgencyOption {
+  position: relative;
+  
+  input {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    
+    &:checked + .urgencyLabel {
+      border-color: $primary-blue;
+      background: linear-gradient(135deg, rgba(30, 58, 138, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
+      color: $primary-blue;
+      box-shadow: 0 4px 12px rgba(30, 58, 138, 0.1);
+      
+      .urgencyEmoji {
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+.urgencyLabel {
+  display: block;
+  padding: 1.25rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: $font-body;
+  font-weight: 500;
+  background: $white;
+  
+  @include respond-to(mobile) {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-align: left;
+  }
+  
+  strong {
+    display: block;
+    font-family: $font-heading;
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 0.375rem;
+    letter-spacing: -0.01em;
+    
+    @include respond-to(mobile) {
+      margin-bottom: 0.125rem;
+      font-size: 1rem;
+    }
+  }
+  
+  small {
+    display: block;
+    color: $accent-grey;
+    font-size: 0.85rem;
+    font-weight: 500;
+    
+    @include respond-to(mobile) {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.urgencyEmoji {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+  transition: transform 0.3s ease;
+  
+  @include respond-to(mobile) {
+    font-size: 1.75rem;
+    margin-bottom: 0;
+  }
+}
+
+.submitBtn {
+  width: 100%;
+  background: $gradient-blue;
+  color: $white;
+  padding: 1.375rem;
+  border: none;
+  border-radius: 14px;
+  font-family: $font-heading;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: 1rem;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(30, 58, 138, 0.25);
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(30, 58, 138, 0.35);
+  }
+  
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  @include respond-to(mobile) {
+    padding: 1.25rem;
+    font-size: 1.05rem;
+    border-radius: 12px;
+  }
+  
+  &.loading {
+    color: transparent;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 24px;
+      height: 24px;
+      margin: -12px 0 0 -12px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top-color: $white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+  }
+}
+
+.successMessage {
+  display: none;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: $white;
+  padding: 2.5rem;
+  border-radius: 16px;
+  text-align: center;
+  margin-top: 1.5rem;
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.25);
+  
+  &.show {
+    display: block;
+    animation: slideIn 0.5s ease;
+  }
+  
+  h3 {
+    font-family: $font-heading;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+    
+    @include respond-to(mobile) {
+      font-size: 1.25rem;
+    }
+  }
+  
+  p {
+    font-family: $font-body;
+    font-size: 1.05rem;
+    opacity: 0.95;
+    line-height: 1.6;
+    
+    @include respond-to(mobile) {
+      font-size: 0.95rem;
+    }
+  }
+}
+
+.formNote {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: $accent-grey;
+  font-family: $font-body;
+  font-size: 0.9rem;
+  font-weight: 500;
+  
+  @include respond-to(mobile) {
+    font-size: 0.85rem;
+  }
+}
+
+.lockIcon {
+  margin-right: 0.375rem;
+}
+
+// Trust Section
+.trustSection {
+  padding: 5rem 0;
+  background: $white;
+  text-align: center;
+  
+  @include respond-to(mobile) {
+    padding: 4rem 0;
+  }
+}
+
+.trustTitle {
+  font-family: $font-heading;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: $primary-dark;
+  margin-top: 1.25rem;
+  letter-spacing: -0.01em;
+  
+  @include respond-to(mobile) {
+    font-size: 1.4rem;
+  }
+}
+
+.trustLogos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3.5rem;
+  flex-wrap: wrap;
+  opacity: 0.6;
+  margin-top: 2.5rem;
+  
+  @include respond-to(mobile) {
+    gap: 1.75rem;
+    margin-top: 2rem;
+  }
+}
+
+.trustItem {
+  font-family: $font-heading;
+  font-weight: 700;
+  color: $accent-grey;
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+  
+  @include respond-to(mobile) {
+    font-size: 1.05rem;
+  }
+}
+
+// Footer
+.footer {
+  background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+  color: $white;
+  padding: 5rem 0 2.5rem;
+  
+  @include respond-to(mobile) {
+    padding: 4rem 0 2rem;
+  }
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 4rem;
+  margin-bottom: 4rem;
+  
+  @include respond-to(tablet) {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+  
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+  }
+}
+
+.footerBrand {
+  img {
+    height: 55px;
+    margin-bottom: 1.25rem;
+    filter: brightness(0) invert(1);
+    opacity: 0.95;
+    
+    @include respond-to(mobile) {
+      height: 50px;
+      margin: 0 auto 1.25rem;
+    }
+  }
+  
+  p {
+    font-family: $font-body;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.8;
+    font-size: 1rem;
+    font-weight: 400;
+    
+    @include respond-to(mobile) {
+      font-size: 0.95rem;
+    }
+  }
+}
+
+.footerCol {
+  h4 {
+    font-family: $font-heading;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1.75rem;
+    color: $white;
+    letter-spacing: -0.01em;
+    
+    @include respond-to(mobile) {
+      margin-bottom: 1.25rem;
+      font-size: 1.05rem;
+    }
+  }
+  
+  ul {
+    list-style: none;
+  }
+  
+  li {
+    margin-bottom: 0.875rem;
+    
+    @include respond-to(mobile) {
+      margin-bottom: 0.75rem;
+    }
+  }
+  
+  a {
+    font-family: $font-body;
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+    
+    &:hover {
+      color: $success;
+      transform: translateX(4px);
+    }
+    
+    @include respond-to(mobile) {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.footerBottom {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 2.5rem;
+  text-align: center;
+  
+  p {
+    font-family: $font-body;
+    color: rgba(255,255,255,0.45);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    
+    @include respond-to(mobile) {
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+  }
+}

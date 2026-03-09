@@ -1,0 +1,1282 @@
+// app/page.module.scss
+
+// Variables
+$primary-blue: #1e3a8a;
+$primary-dark: #0f172a;
+$accent-grey: #64748b;
+$light-grey: #f1f5f9;
+$white: #ffffff;
+$success: #10b981;
+$urgency-red: #dc2626;
+$gradient-blue: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+
+// Breakpoints
+$mobile: 640px;
+$tablet: 968px;
+$desktop: 1200px;
+
+// Mixins
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == mobile {
+    @media (max-width: #{$mobile}) { @content; }
+  }
+  @if $breakpoint == tablet {
+    @media (max-width: #{$tablet}) { @content; }
+  }
+  @if $breakpoint == desktop {
+    @media (min-width: #{$desktop}) { @content; }
+  }
+}
+
+@mixin container {
+  // max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  
+  @include respond-to(mobile) {
+    padding: 0 1rem;
+  }
+}
+
+// Animations
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Base
+.container {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.fadeIn {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Navigation
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(#fff, 0.4);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  padding: 1rem 0;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  
+  &.scrolled {
+    box-shadow: 0 2px 30px rgba(0,0,0,0.1);
+  }
+}
+
+.navContainer {
+  @include container;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  height: 60px;
+  object-fit: contain;
+  border-radius:50%;
+  
+  @include respond-to(mobile) {
+    height: 45px;
+  }
+}
+
+.navCta {
+  background: $gradient-blue;
+  color: $white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(30, 58, 138, 0.3);
+  }
+  
+  @include respond-to(mobile) {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+
+// Urgency Bar
+.urgencyBar {
+  background: $urgency-red;
+  color: $white;
+  padding: 1rem;
+  text-align: center;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    animation: shimmer 2s infinite;
+  }
+  
+  @include respond-to(mobile) {
+    font-size: 0.85rem;
+    padding: 0.75rem;
+  }
+}
+
+.urgencyIcon {
+  margin-right: 0.5rem;
+}
+
+// Hero Section
+.hero {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-top: 80px;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+    opacity: 0.4;
+  }
+}
+
+.heroContainer {
+  @include container;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  
+  @include respond-to(tablet) {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 3rem;
+  }
+}
+
+.heroContent {
+  @include respond-to(tablet) {
+    order: 2;
+  }
+}
+
+.heroTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  color: $white;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  
+  @include respond-to(tablet) {
+    font-size: 2.5rem;
+  }
+  
+  @include respond-to(mobile) {
+    font-size: 2rem;
+  }
+}
+
+.highlight {
+  color: #60a5fa;
+  position: relative;
+  display: inline-block;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: $success;
+    border-radius: 2px;
+  }
+}
+
+.heroSubtitle {
+  font-size: 1.25rem;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  
+  @include respond-to(mobile) {
+    font-size: 1rem;
+  }
+}
+
+.heroBenefits {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  
+  @include respond-to(tablet) {
+    align-items: center;
+  }
+}
+
+.benefitItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: rgba(255,255,255,0.9);
+  font-size: 1.1rem;
+  
+  @include respond-to(mobile) {
+    font-size: 0.95rem;
+    text-align: left;
+  }
+}
+
+.benefitIcon {
+  width: 24px;
+  height: 24px;
+  background: $success;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $white;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.heroCtaGroup {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  
+  @include respond-to(tablet) {
+    justify-content: center;
+  }
+  
+  @include respond-to(mobile) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.btnPrimary {
+  background: $success;
+  color: $white;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4);
+  }
+  
+  @include respond-to(mobile) {
+    justify-content: center;
+    font-size: 1rem;
+    padding: 0.875rem 1.5rem;
+  }
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+  
+  .btnPrimary:hover & {
+    transform: translateX(5px);
+  }
+}
+
+.btnSecondary {
+  background: transparent;
+  color: $white;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  border: 2px solid rgba(255,255,255,0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  
+  &:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: $white;
+  }
+  
+  @include respond-to(mobile) {
+    padding: 0.875rem 1.5rem;
+  }
+}
+
+.heroImage {
+  position: relative;
+  
+  @include respond-to(tablet) {
+    order: 1;
+  }
+  
+  img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+    transform: perspective(1000px) rotateY(-5deg);
+    transition: transform 0.5s ease;
+    
+    @include respond-to(tablet) {
+      transform: none;
+      max-height: 400px;
+      object-fit: cover;
+    }
+  }
+  
+  &:hover img {
+    transform: perspective(1000px) rotateY(0deg);
+    
+    @include respond-to(tablet) {
+      transform: none;
+    }
+  }
+}
+
+.floatingBadge {
+  position: absolute;
+  bottom: -20px;
+  left: -20px;
+  background: $white;
+  padding: 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  animation: float 3s ease-in-out infinite;
+  
+  @include respond-to(mobile) {
+    padding: 1rem;
+    bottom: -10px;
+    left: -10px;
+  }
+}
+
+.badgeNumber {
+  font-size: 2rem;
+  font-weight: 800;
+  color: $primary-blue;
+  display: block;
+  
+  @include respond-to(mobile) {
+    font-size: 1.5rem;
+  }
+}
+
+.badgeText {
+  font-size: 0.9rem;
+  color: $accent-grey;
+  font-weight: 500;
+  
+  @include respond-to(mobile) {
+    font-size: 0.75rem;
+  }
+}
+
+// Problem Section
+.problemSection {
+  padding: 6rem 0;
+  background: $light-grey;
+  
+  @include respond-to(mobile) {
+    padding: 4rem 0;
+  }
+}
+
+.container {
+  @include container;
+}
+
+.sectionHeader {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 4rem;
+  
+  @include respond-to(mobile) {
+    margin-bottom: 2.5rem;
+  }
+}
+
+.sectionTag {
+  color: $primary-blue;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  display: block;
+  
+  @include respond-to(mobile) {
+    font-size: 0.8rem;
+  }
+}
+
+.sectionTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: $primary-dark;
+  margin-bottom: 1rem;
+  
+  @include respond-to(mobile) {
+    font-size: 1.8rem;
+  }
+}
+
+.sectionSubtitle {
+  color: $accent-grey;
+  font-size: 1.1rem;
+  
+  @include respond-to(mobile) {
+    font-size: 1rem;
+  }
+}
+
+.painPoints {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.painCard {
+  background: $white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+  border-left: 4px solid $urgency-red;
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+  }
+  
+  @include respond-to(mobile) {
+    padding: 1.5rem;
+  }
+  
+  h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: $primary-dark;
+    
+    @include respond-to(mobile) {
+      font-size: 1.1rem;
+    }
+  }
+  
+  p {
+    color: $accent-grey;
+    line-height: 1.6;
+    
+    @include respond-to(mobile) {
+      font-size: 0.95rem;
+    }
+  }
+}
+
+.painIcon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  
+  @include respond-to(mobile) {
+    font-size: 2rem;
+  }
+}
+
+// Solution Section
+.solutionSection {
+  padding: 6rem 0;
+  background: $white;
+  
+  @include respond-to(mobile) {
+    padding: 4rem 0;
+  }
+}
+
+.solutionGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  
+  @include respond-to(tablet) {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+.solutionImage {
+  position: relative;
+  
+  img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+  }
+}
+
+.experienceBadge {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  background: $primary-blue;
+  color: $white;
+  padding: 1.5rem;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 15px 30px rgba(30, 58, 138, 0.3);
+  
+  @include respond-to(mobile) {
+    width: 90px;
+    height: 90px;
+    padding: 1rem;
+    top: -10px;
+    right: -10px;
+  }
+}
+
+.expYears {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+  
+  @include respond-to(mobile) {
+    font-size: 1.5rem;
+  }
+}
+
+.expText {
+  font-size: 0.8rem;
+  font-weight: 500;
+  
+  @include respond-to(mobile) {
+    font-size: 0.7rem;
+  }
+}
+
+.solutionContent {
+  .sectionTag {
+    margin-bottom: 1rem;
+  }
+}
+
+.solutionTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: $primary-dark;
+  
+  @include respond-to(mobile) {
+    font-size: 1.8rem;
+  }
+}
+
+.solutionText {
+  color: $accent-grey;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  line-height: 1.8;
+  
+  @include respond-to(mobile) {
+    font-size: 1rem;
+  }
+}
+
+.featureList {
+  list-style: none;
+  margin-bottom: 2rem;
+  
+  li {
+    padding: 1rem 0;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 500;
+    
+    @include respond-to(mobile) {
+      font-size: 0.95rem;
+      padding: 0.75rem 0;
+    }
+    
+    &::before {
+      content: '✓';
+      color: $success;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+  }
+}
+
+// Stats Section
+.statsSection {
+  background: $primary-dark;
+  padding: 4rem 0;
+  color: $white;
+  
+  @include respond-to(mobile) {
+    padding: 3rem 0;
+  }
+}
+.half_container{
+  min-height:50vh;
+  display:grid;
+  justify-items:center;
+  align-items:center
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  text-align: center;
+  
+  @include respond-to(tablet) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.statItem {
+  h3 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: $success;
+    margin-bottom: 0.5rem;
+    
+    @include respond-to(mobile) {
+      font-size: 2.5rem;
+    }
+  }
+  
+  p {
+    color: rgba(255,255,255,0.7);
+    font-weight: 500;
+    
+    @include respond-to(mobile) {
+      font-size: 0.95rem;
+    }
+  }
+}
+
+// Services Section
+.servicesSection {
+  padding: 6rem 0;
+  background: $light-grey;
+  
+  @include respond-to(mobile) {
+    padding: 4rem 0;
+  }
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.serviceCard {
+  background: $white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+  }
+}
+
+.serviceImage {
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  color: $white;
+  position: relative;
+  overflow: hidden;
+  
+  @include respond-to(mobile) {
+    height: 200px;
+  }
+  
+  &.residential {
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  }
+  
+  &.commercial {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+  }
+  
+  &.battery {
+    background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+  }
+}
+
+.serviceEmoji {
+  font-size: 4rem;
+  
+  @include respond-to(mobile) {
+    font-size: 3rem;
+  }
+}
+
+.serviceContent {
+  padding: 2rem;
+  
+  @include respond-to(mobile) {
+    padding: 1.5rem;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: $primary-dark;
+    
+    @include respond-to(mobile) {
+      font-size: 1.25rem;
+    }
+  }
+  
+  p {
+    color: $accent-grey;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    
+    @include respond-to(mobile) {
+      font-size: 0.95rem;
+    }
+  }
+}
+
+.servicePrice {
+  color: $primary-blue;
+  font-weight: 700;
+  font-size: 1.2rem;
+  
+  @include respond-to(mobile) {
+    font-size: 1.1rem;
+  }
+}
+
+// Lead Section
+.leadSection {
+  padding: 6rem 0;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  position: relative;
+  overflow: hidden;
+  
+  @include respond-to(mobile) {
+    padding: 4rem 0;
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(30, 58, 138, 0.05) 0%, transparent 70%);
+    border-radius: 50%;
+    
+    @include respond-to(mobile) {
+      width: 300px;
+      height: 300px;
+    }
+  }
+}
+
+.leadContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.leadHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+  
+  @include respond-to(mobile) {
+    margin-bottom: 2rem;
+  }
+}
+
+.leadTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: $primary-dark;
+  margin-bottom: 1rem;
+  
+  @include respond-to(mobile) {
+    font-size: 1.8rem;
+  }
+}
+
+.leadSubtitle {
+  color: $accent-grey;
+  font-size: 1.1rem;
+  
+  @include respond-to(mobile) {
+    font-size: 1rem;
+  }
+}
+
+.leadForm {
+  background: $white;
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+  
+  @include respond-to(mobile) {
+    padding: 1.5rem;
+  }
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: $primary-dark;
+    font-size: 0.95rem;
+    
+    @include respond-to(mobile) {
+      font-size: 0.9rem;
+    }
+  }
+  
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    
+    @include respond-to(mobile) {
+      padding: 0.875rem;
+      font-size: 16px; // Prevents zoom on iOS
+    }
+    
+    &:focus {
+      outline: none;
+      border-color: $primary-blue;
+    }
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+}
+
+.urgencySelector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 0.5rem;
+  
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.urgencyOption {
+  position: relative;
+  
+  input {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    
+    &:checked + .urgencyLabel {
+      border-color: $primary-blue;
+      background: rgba(30, 58, 138, 0.05);
+      color: $primary-blue;
+    }
+  }
+}
+
+.urgencyLabel {
+  display: block;
+  padding: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  
+  @include respond-to(mobile) {
+    padding: 0.875rem;
+  }
+  
+  strong {
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  
+  small {
+    display: block;
+    color: $accent-grey;
+    font-size: 0.85rem;
+  }
+}
+
+.urgencyEmoji {
+  display: block;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.submitBtn {
+  width: 100%;
+  background: $gradient-blue;
+  color: $white;
+  padding: 1.25rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  position: relative;
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(30, 58, 138, 0.3);
+  }
+  
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  @include respond-to(mobile) {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+  
+  &.loading {
+    color: transparent;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      margin: -10px 0 0 -10px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: $white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+  }
+}
+
+.successMessage {
+  display: none;
+  background: $success;
+  color: $white;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 1rem;
+  
+  &.show {
+    display: block;
+    animation: slideIn 0.5s ease;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    
+    @include respond-to(mobile) {
+      font-size: 1.25rem;
+    }
+  }
+  
+  p {
+    opacity: 0.9;
+    
+    @include respond-to(mobile) {
+      font-size: 0.95rem;
+    }
+  }
+}
+
+.formNote {
+  text-align: center;
+  margin-top: 1rem;
+  color: $accent-grey;
+  font-size: 0.9rem;
+  
+  @include respond-to(mobile) {
+    font-size: 0.85rem;
+  }
+}
+
+.lockIcon {
+  margin-right: 0.25rem;
+}
+
+// Trust Section
+.trustSection {
+  padding: 4rem 0;
+  background: $white;
+  text-align: center;
+  
+  @include respond-to(mobile) {
+    padding: 3rem 0;
+  }
+}
+
+.trust_container{
+  min-height:50vh;
+}
+.trustTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: $primary-dark;
+  margin-top: 1rem;
+  
+  @include respond-to(mobile) {
+    font-size: 1.25rem;
+  }
+}
+
+.trustLogos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  opacity: 0.6;
+  margin-top: 2rem;
+  
+  @include respond-to(mobile) {
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+}
+
+.trustItem {
+  font-weight: 700;
+  color: $accent-grey;
+  font-size: 1.2rem;
+  
+  @include respond-to(mobile) {
+    font-size: 1rem;
+  }
+}
+
+// Footer
+.footer {
+  background: $primary-dark;
+  color: $white;
+  padding: 4rem 0 2rem;
+  
+  @include respond-to(mobile) {
+    padding: 3rem 0 1.5rem;
+  }
+}
+
+.footerLogo{
+  object-fit:contain;
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+  
+  @include respond-to(tablet) {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2rem;
+  }
+}
+
+.footerBrand {
+  img {
+    height: 60px;
+    margin-bottom: 1rem;
+    // filter: brightness(0) invert(1);
+    border-radius:50%;
+    
+    @include respond-to(mobile) {
+      height: 50px;
+      margin: 0 auto 1rem;
+    }
+  }
+  
+  p {
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    
+    @include respond-to(mobile) {
+      font-size: 0.95rem;
+    }
+  }
+}
+
+.footerCol {
+  h4 {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: $white;
+    
+    @include respond-to(mobile) {
+      margin-bottom: 1rem;
+    }
+  }
+  
+  ul {
+    list-style: none;
+  }
+  
+  li {
+    margin-bottom: 0.75rem;
+    
+    @include respond-to(mobile) {
+      margin-bottom: 0.5rem;
+    }
+  }
+  
+  a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    
+    &:hover {
+      color: $success;
+    }
+    
+    @include respond-to(mobile) {
+      font-size: 0.95rem;
+    }
+  }
+}
+
+.footerBottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 2rem;
+  text-align: center;
+  color: rgba(255,255,255,0.5);
+  
+  @include respond-to(mobile) {
+    padding-top: 1.5rem;
+    font-size: 0.85rem;
+  }
+}
