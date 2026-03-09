@@ -2,6 +2,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import classes from "../styles/home.module.scss"
+import Image from 'next/image';
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -127,6 +128,7 @@ export default function Home() {
       {/* Navigation */}
       <nav className={classes.navbar}>
         <div className={classes.navContainer}>
+
           <img src="/logo.jpeg" alt="Henry Tech Solar" className={classes.logo} />
           <button onClick={() => scrollToSection('assessment')} className={classes.navCta}>
             Get Free Quote
@@ -178,6 +180,7 @@ export default function Home() {
           </div>
           
           <div className={`${classes.heroImage} ${classes.fadeIn}`}>
+            {/* <Image src="/installation-2.jpeg" alt="Premium Solar Installation by Henry Tech" width={100} height={100} className={classes.heroImage__img} /> */}
             <img src="/installation-2.jpeg" alt="Premium Solar Installation by Henry Tech" />
             <div className={classes.floatingBadge}>
               <span className={classes.badgeNumber}>500+</span>
@@ -225,7 +228,8 @@ export default function Home() {
         <div className={classes.container}>
           <div className={classes.solutionGrid}>
             <div className={`${classes.solutionImage} ${classes.fadeIn}`}>
-              <img src="/installation-1.jpeg" alt="Professional Solar Installation" />
+              <Image  src="/installation-1.jpeg" alt="Professional Solar Installation" width={100} height={100}/>
+              {/* <img src="/installation-1.jpeg" alt="Professional Solar Installation" /> */}
               <div className={classes.experienceBadge}>
                 <span className={classes.expYears}>8+</span>
                 <span className={classes.expText}>Years<br />Experience</span>
