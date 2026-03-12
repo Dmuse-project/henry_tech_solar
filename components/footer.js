@@ -43,7 +43,7 @@ export default  function Footer () {
           
           <div className={classes.footerBottom}>
             <p>&copy; 2026 Henry Tech Services Nig. Ltd. All rights reserved. | RC Number: 7473694</p>
-            <p> powered by Photon Code Innovation</p>
+            <p> powered by Photon Code Innovations</p>
           </div>
         </div>
       </footer>
