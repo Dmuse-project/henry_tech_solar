@@ -2,9 +2,13 @@
 import classes from "../../styles/thankYou.module.scss"
 import Link from "next/link"
 
-export default function ThankYouPage({ searchParams }) {
+export default async function ThankYouPage({ searchParams }) {
 
-  const leadId = searchParams?.lead
+
+  const params = await searchParams
+  const leadId = params?.lead || "Pending"
+
+  console.log(leadId)
 
   return (
     <div className={classes.thankYouWrapper}>
