@@ -1,0 +1,96 @@
+$primary-color: #00b894;
+$secondary-color: #0984e3;
+$bg-gradient-start: #f0f4f8;
+$bg-gradient-end: #ffffff;
+$text-color: #2d3436;
+$accent-color: #ffeaa7;
+$font-family: 'Poppins', sans-serif;
+
+.thankYouWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 20px;
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, $bg-gradient-start, $bg-gradient-end);
+  font-family: $font-family;
+  color: $text-color;
+  text-align: center;
+
+  h1 {
+    font-size: 3rem;
+    color: $primary-color;
+    margin-bottom: 20px;
+    animation: popIn 0.8s ease-out;
+  }
+
+  p {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    max-width: 500px;
+    line-height: 1.6;
+    color: $text-color;
+    animation: fadeInUp 1s ease forwards;
+  }
+
+  .leadId {
+    font-weight: 700;
+    color: $secondary-color;
+    background-color: lighten($secondary-color, 45%);
+    padding: 6px 12px;
+    border-radius: 12px;
+    margin: 10px 0;
+    display: inline-block;
+    animation: highlight 1s ease forwards;
+  }
+
+  .backButton {
+    margin-top: 30px;
+    background: $primary-color;
+    color: white;
+    padding: 12px 25px;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    &:hover {
+      background: darken($primary-color, 10%);
+      transform: scale(1.05);
+    }
+  }
+}
+
+/* Animations */
+@keyframes popIn {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes highlight {
+  0% {
+    background-color: transparent;
+    color: $secondary-color;
+  }
+  100% {
+    background-color: lighten($secondary-color, 45%);
+    color: $secondary-color;
+  }
+}
