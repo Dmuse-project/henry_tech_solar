@@ -249,6 +249,11 @@ $desktop: 1200px;
     height: 4px;
     background: $success;
     border-radius: 2px;
+
+      @include respond-to(mobile) {
+   bottom:-2px;
+  }
+    
   }
 }
 
