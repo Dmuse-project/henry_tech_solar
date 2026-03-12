@@ -34,7 +34,7 @@ $desktop: 1200px;
   padding: 0 2rem;
   
   @include respond-to(mobile) {
-    padding: 0 1rem;
+    padding: 0rem;
   }
 }
 
@@ -204,6 +204,11 @@ $desktop: 1200px;
     grid-template-columns: 1fr;
     text-align: center;
     gap: 3rem;
+  }
+
+
+   @include respond-to(mobile) {
+    padding: 4rem 1rem;
   }
 }
 
@@ -440,7 +445,7 @@ $desktop: 1200px;
   background: $light-grey;
   
   @include respond-to(mobile) {
-    padding: 4rem 0;
+    padding: 4rem 1rem;
   }
 }
 
@@ -554,7 +559,7 @@ $desktop: 1200px;
   background: $white;
   
   @include respond-to(mobile) {
-    padding: 4rem 0;
+    padding: 4rem 1rem;
   }
 }
 
@@ -687,7 +692,7 @@ $desktop: 1200px;
   color: $white;
   
   @include respond-to(mobile) {
-    padding: 3rem 0;
+    padding: 3rem  0;
   }
 }
 .half_container{
@@ -741,7 +746,7 @@ $desktop: 1200px;
   background: $light-grey;
   
   @include respond-to(mobile) {
-    padding: 4rem 0;
+    padding: 4rem 1rem;
   }
 }
 
@@ -849,7 +854,7 @@ $desktop: 1200px;
   overflow: hidden;
   
   @include respond-to(mobile) {
-    padding: 4rem 0;
+    padding: 4rem 1rem;
   }
   
   &::before {

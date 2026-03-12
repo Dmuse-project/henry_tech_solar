@@ -71,7 +71,7 @@ export default function Lead() {
              }
 
             if (response.ok) {
-                console.log("Request sent sucessfully!")
+                // console.log("Request sent sucessfully!")
               
                 toast.success("Your solar quote request has been sent!")
               
