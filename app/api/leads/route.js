@@ -91,8 +91,11 @@ export async function POST(req) {
 \nPhone: ${phone}
 \nEmail: ${email}
 \nLocation: ${location}
-\nBudget: ${budgetType}
+\nAddress: ${address}
+\nBudget: ₦${budgetType}
+\nProperty: ${propertyType}
 \nUrgency: ${urgency}
+\nMonthly-Bill:₦${monthlyBill}
 \nMessage: ${message || "N/A"}
 `;
 
